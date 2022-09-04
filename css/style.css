@@ -6,3 +6,7 @@
     justify-content: space-between;
     flex-wrap: nowrap;
 }
+
+.resSty {
+    height: 3em;
+}
