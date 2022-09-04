@@ -37,8 +37,13 @@ const resultof = (data, catName) => {
         nodata.classList.remove('d-none');
     }
     else {
+        data.sort((a, b) => a.total_view - b.total_view);
+        let newArr = [];
+        data.forEach((e) => {
+            newArr = newArr.concat(e);
+        });
         nodata.classList.add('d-none');
-        data.forEach(element => {
+        newArr.forEach(element => {
             const creDiv = document.createElement('div');
             creDiv.innerHTML = `<div class="card mb-3">
                 <div class="row g-0">
