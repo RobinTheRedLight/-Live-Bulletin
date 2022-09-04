@@ -27,53 +27,60 @@ const valId = (idName, catName) => {
 }
 const resultof = (data, catName) => {
     const arrLen = data.length;
+    const inerBdy = document.getElementById('innerBody');
+    const nodata = document.getElementById('NoData');
+    inerBdy.innerHTML = ``;
     const resSel = document.getElementById('result');
     resSel.innerText = `${arrLen} items found for category ${catName}`
-    const inerBdy = document.getElementById('innerBody');
-    inerBdy.innerHTML = ``;
-
-    data.forEach(element => {
-        const creDiv = document.createElement('div');
-        creDiv.innerHTML = `<div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">${element.title}</h5>
-                    <p class="card-text">${element.details.slice(0, 200)}...</p>
-                    <div class = "d-flex justify-content-between">
-                        <div class = "d-flex">
-                            <div class = "px-2">
-                            <img  width="35" height="35" src="${element.author.img}" class="rounded-circle" alt="image">
+    if (arrLen === 0) {
+        nodata.innerText = 'No data';
+        nodata.classList.remove('d-none');
+    }
+    else {
+        nodata.classList.add('d-none');
+        data.forEach(element => {
+            const creDiv = document.createElement('div');
+            creDiv.innerHTML = `<div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">${element.title}</h5>
+                            <p class="card-text">${element.details.slice(0, 200)}...</p>
+                            <div class = "d-flex justify-content-between">
+                                <div class = "d-flex">
+                                    <div class = "px-2">
+                                    <img  width="35" height="35" src="${element.author.img}" class="rounded-circle" alt="image">
+                                    </div>
+                                    <div>
+                                    ${element.author.name}
+                                    </div>
+                                <div>
+                                </div>
+                                </div>
+        
+                                <div>
+                                <i class="fa-regular fa-eye"></i>
+                                <div>
+                                ${element.total_view}
+                                </div>
+                                </div>
+                                <div>
+                                <button  onclick ="arrowSym('${element._id}')"   type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
                             </div>
                             <div>
-                            ${element.author.name}
+                            ${element.author.published_date}
                             </div>
-                        <div>
                         </div>
-                        </div>
-
-                        <div>
-                        <i class="fa-regular fa-eye"></i>
-                        <div>
-                        ${element.total_view}
-                        </div>
-                        </div>
-                        <div>
-                        <button  onclick ="arrowSym('${element._id}')"   type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <div>
-                    ${element.author.published_date}
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>`
-        inerBdy.appendChild(creDiv);
-    });
+            </div>`
+            inerBdy.appendChild(creDiv);
+        });
+    }
     spinnerFun(false);
 }
 const arrowSym = eleId => {
