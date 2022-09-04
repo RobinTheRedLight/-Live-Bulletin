@@ -19,6 +19,7 @@ const displayData = (objData) => {
 
 }
 const valId = (idName, catName) => {
+    spinnerFun(true);
     fetch(`https://openapi.programming-hero.com/api/news/category/${idName}`)
         .then(res => res.json())
         .then(data => resultof(data.data, catName))
@@ -30,6 +31,7 @@ const resultof = (data, catName) => {
     resSel.innerText = `${arrLen} items found for category ${catName}`
     const inerBdy = document.getElementById('innerBody');
     inerBdy.innerHTML = ``;
+
     data.forEach(element => {
         const creDiv = document.createElement('div');
         creDiv.innerHTML = `<div class="card mb-3">
@@ -72,6 +74,7 @@ const resultof = (data, catName) => {
     </div>`
         inerBdy.appendChild(creDiv);
     });
+    spinnerFun(false);
 }
 const arrowSym = eleId => {
     fetch(`https://openapi.programming-hero.com/api/news/${eleId}`)
